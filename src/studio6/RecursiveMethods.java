@@ -53,11 +53,26 @@ public class RecursiveMethods {
 	 * @return an array with the same data as the input but it reverse order
 	 */
 	public static int[] toReversed(int[] array) {
-		
-			// FIXME create a helper method that can recursively reverse the given array
-			return new int[0];
-		
+		int[] result = new int[array.length];
+		if(array.length == 0) {
+			return result;
+		}
+		else {
+			return toReversedHelper(array, result, 0);
+
+		}
 	}
+	public static int[] toReversedHelper(int[] array, int[] result, int index) {
+		if (index > array.length/2) {
+			return result;
+		}
+		else {
+			result[index] = array[array.length - index -1];
+			result[array.length - index -1] = array[index];
+			return toReversedHelper(array, result, index + 1);
+		}
+	}
+
 
 	/**
 	 * @param xCenter                       x-coordinate of the center of the circle
@@ -70,8 +85,15 @@ public class RecursiveMethods {
 	 */
 	public static void circlesUponCircles(double xCenter, double yCenter, double radius,
 			double radiusMinimumDrawingThreshold) {
-		
-		// FIXME
+		if (radius >= radiusMinimumDrawingThreshold) {
+			StdDraw.circle(xCenter, yCenter, radius);
+			circlesUponCircles(xCenter + radius, yCenter, radius/3.0, radiusMinimumDrawingThreshold);
+			circlesUponCircles(xCenter - radius, yCenter, radius/3.0, radiusMinimumDrawingThreshold);
+			circlesUponCircles(xCenter, yCenter + radius, radius/3.0, radiusMinimumDrawingThreshold);
+			circlesUponCircles(xCenter, yCenter - radius, radius/3.0, radiusMinimumDrawingThreshold);
+		}
 	}
 
+	public static void main (String args[]) {
+	}
 }
